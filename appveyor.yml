@@ -8,10 +8,14 @@
 
   image: 
     - Visual Studio 2019
-    - Ubuntu
+#    - Ubuntu
   configuration:
     - Windows
     - OSX-Linux
+#    on:
+#      image:
+#        - Visual Studio 2019
+#        - Ubuntu
   platform: 
     - x86
     - x64
