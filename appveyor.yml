@@ -40,6 +40,9 @@
     - ps: ./init_script.ps1
     - git submodule update --init --recursive
 
+  before_build:
+    - ps: nuget restore $env:SOLUTION_NAME
+
   build_script:
     - ps: ./build_script.ps1
 
