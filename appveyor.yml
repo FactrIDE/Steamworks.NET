@@ -7,7 +7,7 @@
       - master
 
   image: 
-    - Visual Studio 2019
+    - Visual Studio 2019    
   version: 13.0.0.{build}
   clone_depth: 1
   
@@ -53,7 +53,3 @@
       username: FactrIDE
       api_key:
         secure: Cc5LQq7vuBMi2CTmoYPLFHuXeFeqTThn6xbL9O/f+r4GAut49B7rDBKfzbwl2TtC
-      on:
-        os: Windows_NT
-        configuration: Release
-        APPVEYOR_REPO_TAG: true
