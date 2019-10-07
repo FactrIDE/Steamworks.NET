@@ -9,6 +9,8 @@
 
   image: 
     - Visual Studio 2019
+  configuration: Default
+  platform: Default
   version: 13.0.0.{build}
   clone_depth: 1
   
