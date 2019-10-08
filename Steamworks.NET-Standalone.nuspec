@@ -37,11 +37,10 @@ Steamworks.NET currently fully supports Windows, OSX, and Linux in both 32 and 6
 	<file src="Release\Windows-x64\netstandard2.0\Steamworks.NET.dll" target="runtimes\win-x64\lib\netstandard2.0\Steamworks.NET.dll" />
     <file src="Plugins\x86_64\steam_api64.dll" target="runtimes\win-x64\native\steam_api64.dll" />
 	
-	<file src="Steamworks.NET-Standalone.net40.props" target="build\net40\Steamworks.NET-Standalone-Specific.props" />
-	<file src="Steamworks.NET-Standalone.netstandard2.0.props" target="build\netstandard2.0\Steamworks.NET-Standalone-Specific.props" />
+	<file src="Steamworks.NET-Standalone.net40.props" target="build\net40\Steamworks.NET-Standalone.Specific.props" />
+	<file src="Steamworks.NET-Standalone.netstandard2.0.props" target="build\netstandard2.0\Steamworks.NET-Standalone.Specific.props" />
 	<file src="Steamworks.NET-Standalone.props" target="build\net40\Steamworks.NET-Standalone.props" />
 	<file src="Steamworks.NET-Standalone.props" target="build\netstandard2.0\Steamworks.NET-Standalone.props" />
-	<!-- <file src="Steamworks.NET-Standalone.props" target="buildMultiTargeting\Steamworks.NET-Standalone.props" /> -->
 	<file src="Plugins\Steamworks.NET\redist\steam_appid.txt" target="build\steam_appid.txt" />
   </files>
 </package>

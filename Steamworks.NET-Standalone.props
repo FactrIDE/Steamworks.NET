@@ -4,6 +4,10 @@
     <PropertyGroup>
         <ShouldIncludeNativeSteamworks Condition=" '$(ShouldIncludeNativeSteamworks)' == '' ">True</ShouldIncludeNativeSteamworks>
     </PropertyGroup>
+	
+	<ImportGroup>
+        <Import Project="$(MSBuildThisFileDirectory)Steamworks.NET-Standalone.Specific.props" Condition="Exists('$(MSBuildThisFileDirectory)Steamworks.NET-Standalone.Specific.props')" />
+    </ImportGroup>
 
     <!-- get the preferred architecture -->
     <PropertyGroup>
@@ -59,7 +63,5 @@
             <HintPath>$(PreferredOSXSteamworksPath)</HintPath>
         </Reference>
     </ItemGroup>
-	
-
 
 </Project>
