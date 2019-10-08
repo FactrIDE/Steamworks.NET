@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-		    <PreferredWindowsSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\win-$(PreferredNativeSteamworks)\lib\net40\Steamworks.NET.dll</PreferredWindowsSteamworksPath>
+		<PreferredWindowsSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\win-$(PreferredNativeSteamworks)\lib\net40\Steamworks.NET.dll</PreferredWindowsSteamworksPath>
         <PreferredOSXSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\osx\lib\net40\Steamworks.NET.dll</PreferredOSXSteamworksPath>
         <PreferredLinuxSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\linux-$(PreferredNativeSteamworks)\lib\net40\Steamworks.NET.dll</PreferredLinuxSteamworksPath>
     </PropertyGroup>
