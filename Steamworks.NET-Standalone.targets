@@ -22,40 +22,30 @@
     </PropertyGroup>
 
     <!-- get the preferred paths -->
-	<PropertyGroup Condition>
+	<PropertyGroup>
 	    <SteamAppIDPath>$(MSBuildThisFileDirectory)steam_appid.txt</SteamAppIDPath>
 	
         <PreferredWindowsNativeSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\win-$(PreferredNativeSteamworks)\native\steam_api$(SteamworksEnding).dll</PreferredWindowsNativeSteamworksPath>
         <PreferredOSXNativeSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\osx\native\libsteam_api.dylib</PreferredOSXNativeSteamworksPath>
         <PreferredLinuxNativeSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\linux-$(PreferredNativeSteamworks)\native\libsteam_api.so</PreferredLinuxNativeSteamworksPath>
-		
-		<PreferredWindowsSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\win-$(PreferredNativeSteamworks)\lib\netstandard2.0\Steamworks.NET.dll</PreferredWindowsSteamworksPath>
-        <PreferredOSXSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\osx\lib\netstandard2.0\Steamworks.NET.dll</PreferredOSXSteamworksPath>
-        <PreferredLinuxSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\linux-$(PreferredNativeSteamworks)\lib\netstandard2.0\Steamworks.NET.dll</PreferredLinuxSteamworksPath>
-    </PropertyGroup>
-	<!-- override if it's anything before netstandard2.0 -->
-    <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.0' OR '$(TargetFrameworkVersion)' == 'v4.5' OR '$(TargetFrameworkVersion)' == 'v4.5.1' OR '$(TargetFrameworkVersion)' == 'v4.5.2' OR '$(TargetFramework)' == 'net40' OR '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net451' OR '$(TargetFramework)' == 'net452' ">
-		<PreferredWindowsSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\win-$(PreferredNativeSteamworks)\lib\net40\Steamworks.NET.dll</PreferredWindowsSteamworksPath>
-        <PreferredOSXSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\osx\lib\net40\Steamworks.NET.dll</PreferredOSXSteamworksPath>
-        <PreferredLinuxSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\linux-$(PreferredNativeSteamworks)\lib\net40\Steamworks.NET.dll</PreferredLinuxSteamworksPath>
     </PropertyGroup>
 
     <ItemGroup Condition=" '$(ShouldIncludeNativeSteamworks)' != 'False' ">
         <None Include="$(PreferredWindowsNativeSteamworksPath)" Condition=" Exists('$(PreferredWindowsNativeSteamworksPath)') AND '$(OS)' == 'Windows_NT' ">
-            <Link>Steamworks\$([System.IO.Path]::GetFilename('$(PreferredWindowsNativeSteamworksPath)'))</Link>
+            <Link>$([System.IO.Path]::GetFilename('$(PreferredWindowsNativeSteamworksPath)'))</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="$(PreferredOSXNativeSteamworksPath)" Condition=" Exists('$(PreferredOSXNativeSteamworksPath)') AND '$(OS)' == 'Unix' AND !Exists('/Library/Frameworks') ">
-            <Link>Steamworks\$([System.IO.Path]::GetFilename('$(PreferredOSXNativeSteamworksPath)'))</Link>
+            <Link>$([System.IO.Path]::GetFilename('$(PreferredOSXNativeSteamworksPath)'))</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="$(PreferredLinuxNativeSteamworksPath)" Condition=" Exists('$(PreferredLinuxNativeSteamworksPath)') AND '$(OS)' == 'Unix' AND Exists('/Library/Frameworks') ">
-            <Link>Steamworks\$([System.IO.Path]::GetFilename('$(PreferredLinuxNativeSteamworksPath)'))</Link>
+            <Link>$([System.IO.Path]::GetFilename('$(PreferredLinuxNativeSteamworksPath)'))</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
 		
 		<None Include="$(SteamAppIDPath)" Condition=" Exists('$(SteamAppIDPath)') ">
-		    <Link>Steamworks\$([System.IO.Path]::GetFilename('$(SteamAppIDPath)'))</Link>
+		    <Link>$([System.IO.Path]::GetFilename('$(SteamAppIDPath)'))</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
 		
