@@ -37,9 +37,8 @@ Steamworks.NET currently fully supports Windows, OSX, and Linux in both 32 and 6
 	<file src="Release\Windows-x64\netstandard2.0\Steamworks.NET.dll" target="runtimes\win-x64\lib\netstandard2.0\Steamworks.NET.dll" />
     <file src="Plugins\x86_64\steam_api64.dll" target="runtimes\win-x64\native\steam_api64.dll" />
 	
-	<file src="Steamworks.NET-Standalone.FX.targets" target="build\net40\Steamworks.NET-Standalone.targets" />
-	<file src="Steamworks.NET-Standalone.Standard.targets" target="build\netstandard2.0\Steamworks.NET-Standalone.targets" />
-	<file src="Plugins\Steamworks.NET\redist\steam_appid.txt" target="build\net40\steam_appid.txt" />
-	<file src="Plugins\Steamworks.NET\redist\steam_appid.txt" target="build\netstandard2.0\steam_appid.txt" />
+	<file src="Steamworks.NET-Standalone.targets" target="build\net40\Steamworks.NET-Standalone.targets" />
+	<file src="Steamworks.NET-Standalone.targets" target="build\netstandard2.0\Steamworks.NET-Standalone.targets" />
+	<file src="Plugins\Steamworks.NET\redist\steam_appid.txt" target="build\steam_appid.txt" />
   </files>
 </package>

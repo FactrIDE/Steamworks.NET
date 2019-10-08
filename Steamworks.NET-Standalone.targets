@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <!-- This target file was inspired by SkiaSharp one, it will be used to copy the native Lua dll to the output directory -->
-
     <!-- if ShouldIncludeNativeSteamworks == False then don't include the native Steamworks -->
     <PropertyGroup>
         <ShouldIncludeNativeSteamworks Condition=" '$(ShouldIncludeNativeSteamworks)' == '' ">True</ShouldIncludeNativeSteamworks>
@@ -24,44 +22,43 @@
     </PropertyGroup>
 
     <!-- get the preferred paths -->
-    <PropertyGroup>
+	<PropertyGroup Condition>
+	    <SteamAppIDPath>$(MSBuildThisFileDirectory)steam_appid.txt</SteamAppIDPath>
+	
         <PreferredWindowsNativeSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\win-$(PreferredNativeSteamworks)\native\steam_api$(SteamworksEnding).dll</PreferredWindowsNativeSteamworksPath>
         <PreferredOSXNativeSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\osx\native\libsteam_api.dylib</PreferredOSXNativeSteamworksPath>
         <PreferredLinuxNativeSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\linux-$(PreferredNativeSteamworks)\native\libsteam_api.so</PreferredLinuxNativeSteamworksPath>
 		
+		<PreferredWindowsSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\win-$(PreferredNativeSteamworks)\lib\netstandard2.0\Steamworks.NET.dll</PreferredWindowsSteamworksPath>
+        <PreferredOSXSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\osx\lib\netstandard2.0\Steamworks.NET.dll</PreferredOSXSteamworksPath>
+        <PreferredLinuxSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\linux-$(PreferredNativeSteamworks)\lib\netstandard2.0\Steamworks.NET.dll</PreferredLinuxSteamworksPath>
+    </PropertyGroup>
+	<!-- override if it's anything before netstandard2.0 -->
+    <PropertyGroup Condition=" '$(TargetFrameworkVersion)' == 'v4.0' OR '$(TargetFrameworkVersion)' == 'v4.5' OR '$(TargetFrameworkVersion)' == 'v4.5.1' OR '$(TargetFrameworkVersion)' == 'v4.5.2' OR '$(TargetFramework)' == 'net40' OR '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net451' OR '$(TargetFramework)' == 'net452' ">
 		<PreferredWindowsSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\win-$(PreferredNativeSteamworks)\lib\net40\Steamworks.NET.dll</PreferredWindowsSteamworksPath>
         <PreferredOSXSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\osx\lib\net40\Steamworks.NET.dll</PreferredOSXSteamworksPath>
         <PreferredLinuxSteamworksPath>$(MSBuildThisFileDirectory)..\..\runtimes\linux-$(PreferredNativeSteamworks)\lib\net40\Steamworks.NET.dll</PreferredLinuxSteamworksPath>
     </PropertyGroup>
 
     <ItemGroup Condition=" '$(ShouldIncludeNativeSteamworks)' != 'False' ">
-        <None Include="$(PreferredWindowsNativeSteamworksPath)" Condition=" Exists('$(PreferredWindowsNativeSteamworksPath)') ">
-            <Link>$([System.IO.Path]::GetFilename('$(PreferredWindowsNativeSteamworksPath)'))</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="$(PreferredWindowsNativeSteamworksPath)" Condition=" Exists('$(PreferredWindowsNativeSteamworksPath)') AND '$(OS)' == 'Windows_NT' ">
+            <Link>Steamworks\$([System.IO.Path]::GetFilename('$(PreferredWindowsNativeSteamworksPath)'))</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="$(PreferredOSXNativeSteamworksPath)" Condition=" Exists('$(PreferredOSXNativeSteamworksPath)') ">
-            <Link>$([System.IO.Path]::GetFilename('$(PreferredOSXNativeSteamworksPath)'))</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Include="$(PreferredOSXNativeSteamworksPath)" Condition=" Exists('$(PreferredOSXNativeSteamworksPath)') AND '$(OS)' == 'Unix' AND !Exists('/Library/Frameworks') ">
+            <Link>Steamworks\$([System.IO.Path]::GetFilename('$(PreferredOSXNativeSteamworksPath)'))</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="$(PreferredLinuxNativeSteamworksPath)" Condition=" Exists('$(PreferredLinuxNativeSteamworksPath)') ">
-            <Link>$([System.IO.Path]::GetFilename('$(PreferredLinuxNativeSteamworksPath)'))</Link>
+        <None Include="$(PreferredLinuxNativeSteamworksPath)" Condition=" Exists('$(PreferredLinuxNativeSteamworksPath)') AND '$(OS)' == 'Unix' AND Exists('/Library/Frameworks') ">
+            <Link>Steamworks\$([System.IO.Path]::GetFilename('$(PreferredLinuxNativeSteamworksPath)'))</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+		
+		<None Include="$(SteamAppIDPath)" Condition=" Exists('$(SteamAppIDPath)') ">
+		    <Link>Steamworks\$([System.IO.Path]::GetFilename('$(SteamAppIDPath)'))</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
 		
-		<None Include="$(PreferredWindowsSteamworksPath)" Condition=" Exists('$(PreferredWindowsSteamworksPath)') and '$(OS)' == 'Windows_NT' ">
-            <Link>$([System.IO.Path]::GetFilename('$(PreferredWindowsSteamworksPath)'))</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-		<None Include="$(PreferredLinuxSteamworksPath)" Condition=" Exists('$(PreferredLinuxSteamworksPath)') and '$(OS)' == 'Unix' and !Exists('/Library/Frameworks') ">
-            <Link>$([System.IO.Path]::GetFilename('$(PreferredLinuxSteamworksPath)'))</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-		<None Include="$(PreferredOSXSteamworksPath)" Condition=" Exists('$(PreferredOSXSteamworksPath)') and '$(OS)' == 'Unix' AND Exists('/Library/Frameworks') ">
-            <Link>$([System.IO.Path]::GetFilename('$(PreferredOSXSteamworksPath)'))</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-		
-		<!-- shame Steamworks.NET cannot be referenced via nuget directly -->
 		<Reference Include="Steamworks.NET" Condition="'$(OS)' == 'Windows_NT'">
             <HintPath>$(PreferredWindowsSteamworksPath)</HintPath>
         </Reference>
