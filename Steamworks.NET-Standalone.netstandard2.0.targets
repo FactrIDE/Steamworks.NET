@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <SteamAppIDPath>$(MSBuildThisFileDirectory)..\steam_appid.txt</SteamAppIDPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(SteamAppIDPath)" Condition=" Exists('$(SteamAppIDPath)') ">
+            <Link>$([System.IO.Path]::GetFilename('$(SteamAppIDPath)'))</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+</Project>
